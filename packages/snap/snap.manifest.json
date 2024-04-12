@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example",
+  "description": "Pyxine, your web3 defender",
+  "proposedName": "Pyxine",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "CGzW5R941TCuwqu3u6CxT6LoWrYq4MTrqQzDNxEZHXA=",
+    "shasum": "RCR/DLgXuduLGXwHruxlVb11w6Tw/6ir5+1z3qmwiIk=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
