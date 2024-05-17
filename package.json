@@ -3,16 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "description": "",
-  "homepage": "https://github.com/MetaMask/template-snap-monorepo#readme",
+  "homepage": "https://github.com/Pyxine/metamask.pyxine.io#readme",
   "bugs": {
-    "url": "https://github.com/MetaMask/template-snap-monorepo/issues"
+    "url": "https://github.com/Pyxine/metamask.pyxine.io/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "git+https://github.com/Pyxine/metamask.pyxine.io.git"
   },
-  "license": "(MIT-0 OR Apache-2.0)",
-  "author": "",
+  "author": "Pyxine",
   "workspaces": [
     "packages/*"
   ],

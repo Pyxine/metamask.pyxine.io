@@ -7,11 +7,11 @@
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "TUnGrShZGbEXXaCagKzz1OuPS0/Kyws5q5txjnywt0s=",
+    "shasum": "NVPoTKDn4DB9CAXQKjEP2BLXC0cIyw/2c2GSv9liaqE=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "snap",
+        "packageName": "pyxine-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
