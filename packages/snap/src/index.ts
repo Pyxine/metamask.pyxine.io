@@ -9,6 +9,10 @@ import warningIcon from '../static/shield-warning.svg';
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   let score = await fetch(
     `https://api-pyxine-io.vercel.app/v1/score/${transaction.to}`,
+      {
+      headers: {
+      "x-cached": "true",
+    }},
   );
   score = await score.json();
   console.log(score);
@@ -18,22 +22,31 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
 };
 
 function renderScore(score: any, address: any): any {
+  const transactions = score.transactions * 10000;
   return [
     ...renderHeader(score, address),
     divider(),
     heading('Address'),
     text(address),
-    heading('Creation Date'),
-    text('01/01/1970'),
+    // heading('Creation Date'),
+    // text('01/01/1970'),
     heading('Interactions'),
-    text(`${score.transactions * 1000}`),
+    text(`${transactions == -10000 ? 'Not enough interactions' : (transactions >= 10000 ? 'More than 10,000' : transactions)}`),
     ...renderDetails(score),
   ];
 }
 
 function renderDetails(score: any) {
   if (score.final == -1) {
-    return [];
+    return [
+      divider(),
+      text("As we couldn’t offer the level of protection we aim, we recommend you follow the security tips below to safeguard your transaction."),
+      heading("Security Tips"),
+      text("✔️  Ensure you know and trust the address you are interacting with"),
+      text("✔️  Double-check that the address shown in your wallet matches the actual contract address. Using Etherscan to verify it can be helpful"),
+      text("✔️  Always use a secure and private internet connection to protect your data"),
+      text("✔️  Keep your Pyxine extension updated to the latest version for optimal security")
+    ];
   }
 
   return [
@@ -48,7 +61,7 @@ function renderDetails(score: any) {
       )} Source code matches the deployed contract`,
     ),
     text(
-      `${renderNumericEvaluationIcon(score.contractOwner)} Expected volume of transactions´`,
+      `${renderNumericEvaluationIcon(score.transactionsDiffAccounts)} Expected volume of transactions`,
     ),
   ];
 }
