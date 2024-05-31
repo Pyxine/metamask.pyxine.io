@@ -1,28 +1,86 @@
 import type { OnTransactionHandler } from '@metamask/snaps-sdk';
-import { heading, panel, text, divider, image } from '@metamask/snaps-sdk';
+import { UserInputEventType, heading, panel, text, divider, image, spinner, button  } from '@metamask/snaps-sdk';
 import safeIcon from '../static/shield-safe.svg';
 import crossIcon from '../static/shield-cross.svg';
 import unknownIcon from '../static/shield-unknown.svg';
 import warningIcon from '../static/shield-warning.svg';
 
+let interfaceId = null;
+let globalTransaction = null;
+
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
-  let score = await fetch(
-    `https://api-pyxine-io.vercel.app/v1/score/${transaction.to}`,
-      {
-      headers: {
-      "x-cached": "true",
-    }},
-  );
-  score = await score.json();
-  console.log(score);
+  globalTransaction = transaction;
+  interfaceId = await snap.request({
+    method: "snap_createInterface",
+    params: {
+      ui: panel([])
+    },
+  });
+
+  await renderPanel(transaction);
+
   return {
-    content: panel(renderScore(score, transaction.to)),
+    id: interfaceId,
   };
 };
 
+export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
+  console.log(id, event);
+  if (event.type === UserInputEventType.ButtonClickEvent) {
+    if (event.name === "retry-button") {
+      await renderPanel(globalTransaction);
+    }
+  }
+};
+
+async function renderPanel(transaction) {
+  let score = [
+     spinner(),
+     heading("Getting score"),
+  ];
+
+  await updateInteractiveUI(score);
+
+  try {
+    let score = await fetch(
+      `https://api-pyxine-io.vercel.app/v1/score/${transaction.to}`,
+        {
+        headers: {
+        "x-cached": "true",
+      }},
+    );
+
+    if (score.status !== 200) {
+      throw "error";
+    }
+
+    score = await score.json();
+    await updateInteractiveUI(renderScore(score, transaction.to));
+  } catch(_) {
+    await updateInteractiveUI([
+      image(crossIcon),
+      heading("There was an error trying to calculate the score, please try again in a few moments."),
+      button({
+        value: "Retry",
+        name: "retry-button",
+      }),
+    ]);
+  }
+}
+
+async function updateInteractiveUI(ui) {
+  await snap.request({
+    method: "snap_updateInterface",
+    params: {
+      id: interfaceId,
+      ui: panel(ui),
+    },
+  });
+}
+
+
 function renderScore(score: any, address: any): any {
-  const transactions = score.transactions * 10000;
   return [
     ...renderHeader(score, address),
     divider(),
@@ -31,7 +89,13 @@ function renderScore(score: any, address: any): any {
     // heading('Creation Date'),
     // text('01/01/1970'),
     heading('Interactions'),
-    text(`${transactions == -10000 ? 'Not enough interactions' : (transactions >= 10000 ? 'More than 10,000' : transactions)}`),
+    text(`${score.transactions == -1
+              ? 'Not enough interactions'
+              : (score.transactions >= 1
+                  ? 'More than 10,000'
+                  : score.transactions * 10000
+                )
+    }`),
     ...renderDetails(score),
   ];
 }
