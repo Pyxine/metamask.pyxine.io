@@ -1,9 +1,10 @@
 import type { OnTransactionHandler } from '@metamask/snaps-sdk';
-import { UserInputEventType, heading, panel, text, divider, image, spinner, button  } from '@metamask/snaps-sdk';
+import { UserInputEventType, heading, panel, text, divider, image, spinner, button, address  } from '@metamask/snaps-sdk';
 import safeIcon from '../static/shield-safe.svg';
 import crossIcon from '../static/shield-cross.svg';
 import unknownIcon from '../static/shield-unknown.svg';
 import warningIcon from '../static/shield-warning.svg';
+import errorIcon from '../static/error.svg';
 
 let interfaceId = null;
 let globalTransaction = null;
@@ -57,9 +58,10 @@ async function renderPanel(transaction) {
 
     score = await score.json();
     await updateInteractiveUI(renderScore(score, transaction.to));
-  } catch(_) {
+  } catch(e) {
+    console.log(e);
     await updateInteractiveUI([
-      image(crossIcon),
+      image(errorIcon),
       heading("There was an error trying to calculate the score, please try again in a few moments."),
       button({
         value: "Retry",
@@ -106,10 +108,10 @@ function renderDetails(score: any) {
       divider(),
       text("As we couldn’t offer the level of protection we aim, we recommend you follow the security tips below to safeguard your transaction."),
       heading("Security Tips"),
-      text("✔️  Ensure you know and trust the address you are interacting with"),
-      text("✔️  Double-check that the address shown in your wallet matches the actual contract address. Using Etherscan to verify it can be helpful"),
-      text("✔️  Always use a secure and private internet connection to protect your data"),
-      text("✔️  Keep your Pyxine extension updated to the latest version for optimal security")
+      text("💡 Ensure you know and trust the address you are interacting with"),
+      text("💡 Double-check that the address shown in your wallet matches the actual contract address. Using Etherscan to verify it can be helpful"),
+      text("💡 Always use a secure and private internet connection to protect your data"),
+      text("💡 Keep your Pyxine extension updated to the latest version for optimal security")
     ];
   }
 
