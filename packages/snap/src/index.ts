@@ -5,6 +5,7 @@ import crossIcon from '../static/shield-cross.svg';
 import unknownIcon from '../static/shield-unknown.svg';
 import warningIcon from '../static/shield-warning.svg';
 import errorIcon from '../static/error.svg';
+import betaIcon from '../static/beta.svg';
 
 let interfaceId = null;
 let globalTransaction = null;
@@ -37,6 +38,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
 
 async function renderPanel(transaction) {
   let score = [
+     image(betaIcon),
      spinner(),
      heading("Getting score"),
   ];
@@ -61,6 +63,7 @@ async function renderPanel(transaction) {
   } catch(e) {
     console.log(e);
     await updateInteractiveUI([
+      image(betaIcon),
       image(errorIcon),
       heading("There was an error trying to calculate the score, please try again in a few moments."),
       button({
@@ -135,6 +138,7 @@ function renderDetails(score: any) {
 function renderHeader(score: any, address: string) {
   if (score.final == -1) {
     return [
+      image(betaIcon),
       heading('Unknown risk transaction'),
       image(renderIcon(score.final)),
       text(`We don't have enough information about **${address}**`),
@@ -143,18 +147,21 @@ function renderHeader(score: any, address: string) {
 
   if (score.final < 0.3) {
     return [
+      image(betaIcon),
       heading('High risk transaction'),
       image(renderIcon(score.final)),
       text(`The **${address}** didn't meet any of our security standards`),
     ];
   } else if (score.final >= 0.3 && score.final < 0.6) {
     return [
+      image(betaIcon),
       heading('Middle risk transaction'),
       image(renderIcon(score.final)),
       text(`The **${address}** didn't meet some of our security standards`)
     ];
   } else {
     return [
+      image(betaIcon),
       heading('Low risk transaction'),
       image(renderIcon(score.final)),
       text(`The **${address}** met most of our security standards`),
