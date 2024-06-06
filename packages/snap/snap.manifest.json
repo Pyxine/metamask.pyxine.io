@@ -1,10 +1,10 @@
 {
   "version": "0.1.0",
   "description": "Pyxine, your web3 defender",
-  "proposedName": "Pyxine",
+  "proposedName": "Pyxine (Beta)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/Pyxine/metamask.pyxine.io"
   },
   "source": {
     "shasum": "KU5Uljuqawmr6aADhPVDI2pdGlF6mF/VMrS7iHgaUVQ=",

@@ -1,5 +1,15 @@
 import type { OnTransactionHandler } from '@metamask/snaps-sdk';
-import { UserInputEventType, heading, panel, text, divider, image, spinner, button, address  } from '@metamask/snaps-sdk';
+import {
+  UserInputEventType,
+  heading,
+  panel,
+  text,
+  divider,
+  image,
+  spinner,
+  button,
+  address,
+} from '@metamask/snaps-sdk';
 import safeIcon from '../static/shield-safe.svg';
 import crossIcon from '../static/shield-cross.svg';
 import unknownIcon from '../static/shield-unknown.svg';
@@ -14,9 +24,9 @@ let globalTransaction = null;
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   globalTransaction = transaction;
   interfaceId = await snap.request({
-    method: "snap_createInterface",
+    method: 'snap_createInterface',
     params: {
-      ui: panel([])
+      ui: panel([]),
     },
   });
 
@@ -30,45 +40,44 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
 export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
   console.log(id, event);
   if (event.type === UserInputEventType.ButtonClickEvent) {
-    if (event.name === "retry-button") {
+    if (event.name === 'retry-button') {
       await renderPanel(globalTransaction);
     }
   }
 };
 
 async function renderPanel(transaction) {
-  let score = [
-     image(betaIcon),
-     spinner(),
-     heading("Getting score"),
-  ];
+  let score = [image(betaIcon), spinner(), heading('Getting score')];
 
   await updateInteractiveUI(score);
 
   try {
     let score = await fetch(
-      `https://api-pyxine-io.vercel.app/v1/score/${transaction.to}`,
-        {
+      `https://api.pyxine.io/v1/score/${transaction.to}`,
+      {
         headers: {
-        "x-cached": "true",
-      }},
+          'x-cached': 'true',
+        },
+      },
     );
 
     if (score.status !== 200) {
-      throw "error";
+      throw 'error';
     }
 
     score = await score.json();
     await updateInteractiveUI(renderScore(score, transaction.to));
-  } catch(e) {
+  } catch (e) {
     console.log(e);
     await updateInteractiveUI([
       image(betaIcon),
       image(errorIcon),
-      heading("There was an error trying to calculate the score, please try again in a few moments."),
+      heading(
+        'There was an error trying to calculate the score, please try again in a few moments.',
+      ),
       button({
-        value: "Retry",
-        name: "retry-button",
+        value: 'Retry',
+        name: 'retry-button',
       }),
     ]);
   }
@@ -76,14 +85,13 @@ async function renderPanel(transaction) {
 
 async function updateInteractiveUI(ui) {
   await snap.request({
-    method: "snap_updateInterface",
+    method: 'snap_updateInterface',
     params: {
       id: interfaceId,
       ui: panel(ui),
     },
   });
 }
-
 
 function renderScore(score: any, address: any): any {
   return [
@@ -94,13 +102,15 @@ function renderScore(score: any, address: any): any {
     // heading('Creation Date'),
     // text('01/01/1970'),
     heading('Interactions'),
-    text(`${score.transactions == -1
-              ? 'Not enough interactions'
-              : (score.transactions >= 1
-                  ? 'More than 10,000'
-                  : score.transactions * 10000
-                )
-    }`),
+    text(
+      `${
+        score.transactions == -1
+          ? 'Not enough interactions'
+          : score.transactions >= 1
+          ? 'More than 10,000'
+          : score.transactions * 10000
+      }`,
+    ),
     ...renderDetails(score),
   ];
 }
@@ -109,12 +119,20 @@ function renderDetails(score: any) {
   if (score.final == -1) {
     return [
       divider(),
-      text("As we couldn’t offer the level of protection we aim, we recommend you follow the security tips below to safeguard your transaction."),
-      heading("Security Tips"),
-      text("💡 Ensure you know and trust the address you are interacting with"),
-      text("💡 Double-check that the address shown in your wallet matches the actual contract address. Using Etherscan to verify it can be helpful"),
-      text("💡 Always use a secure and private internet connection to protect your data"),
-      text("💡 Keep your Pyxine extension updated to the latest version for optimal security")
+      text(
+        'As we couldn’t offer the level of protection we aim, we recommend you follow the security tips below to safeguard your transaction.',
+      ),
+      heading('Security Tips'),
+      text('💡 Ensure you know and trust the address you are interacting with'),
+      text(
+        '💡 Double-check that the address shown in your wallet matches the actual contract address. Using Etherscan to verify it can be helpful',
+      ),
+      text(
+        '💡 Always use a secure and private internet connection to protect your data',
+      ),
+      text(
+        '💡 Keep your Pyxine extension updated to the latest version for optimal security',
+      ),
     ];
   }
 
@@ -122,7 +140,9 @@ function renderDetails(score: any) {
     divider(),
     heading('Verification Process'),
     text(
-      `${renderNumericEvaluationIcon(score.contractOwner)} Contract owner legitimacy`,
+      `${renderNumericEvaluationIcon(
+        score.contractOwner,
+      )} Contract owner legitimacy`,
     ),
     text(
       `${renderBooleanEvaluationIcon(
@@ -130,7 +150,9 @@ function renderDetails(score: any) {
       )} Source code matches the deployed contract`,
     ),
     text(
-      `${renderNumericEvaluationIcon(score.transactionsDiffAccounts)} Expected volume of transactions`,
+      `${renderNumericEvaluationIcon(
+        score.transactionsDiffAccounts,
+      )} Expected volume of transactions`,
     ),
   ];
 }
@@ -157,7 +179,7 @@ function renderHeader(score: any, address: string) {
       image(betaIcon),
       heading('Middle risk transaction'),
       image(renderIcon(score.final)),
-      text(`The **${address}** didn't meet some of our security standards`)
+      text(`The **${address}** didn't meet some of our security standards`),
     ];
   } else {
     return [
