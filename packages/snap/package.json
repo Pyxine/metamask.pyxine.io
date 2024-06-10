@@ -4,7 +4,7 @@
   "description": "Pyxine, your web3 defender",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Pyxine/metamask.pyxine.io.git"
+    "url": "git+https://github.com/Pyxine/metamask.pyxine.io.git"
   },
   "main": "./dist/bundle.js",
   "files": [
