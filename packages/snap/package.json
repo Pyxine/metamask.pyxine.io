@@ -1,5 +1,5 @@
 {
-  "name": "pyxine-snap",
+  "name": "@pyxine/pyxine-snap",
   "version": "0.1.0",
   "description": "Pyxine, your web3 defender",
   "repository": {
@@ -61,6 +61,6 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/pyxine"
   }
 }
