@@ -1,6 +1,6 @@
 {
   "name": "pyxine-development-site",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "allow-scripts": "yarn workspace root allow-scripts",
