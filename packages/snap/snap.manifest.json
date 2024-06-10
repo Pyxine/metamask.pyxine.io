@@ -4,10 +4,10 @@
   "proposedName": "Pyxine (Beta)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Pyxine/metamask.pyxine.io"
+    "url": "https://github.com/Pyxine/metamask.pyxine.io.git"
   },
   "source": {
-    "shasum": "YrGzxMPU330L889huWorPqY7m+iv5UuEEmIVyKq6m1E=",
+    "shasum": "WWx9fIMoBn0glJKFt8dT1vM6gjr7eqRYTVPW9NJTAoI=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
