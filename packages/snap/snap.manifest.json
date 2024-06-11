@@ -7,18 +7,20 @@
     "url": "git+https://github.com/Pyxine/metamask.pyxine.io.git"
   },
   "source": {
-    "shasum": "JQVhN05tYXwgC3kfoOq/+JQ4SbIxi4y7pnR147s1vus=",
+    "shasum": "N+hTKk3BDCs0jWiKf7zAuFUd0PMDe1AHjd52kOHAtDM=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "iconPath": "icon.svg",
+        "iconPath": "static/icon.svg",
         "packageName": "@pyxine/pyxine-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
   },
   "initialPermissions": {
-    "endowment:transaction-insight": {},
+    "endowment:transaction-insight": {
+      "allowTransactionOrigin": true
+    },
     "endowment:network-access": {}
   },
   "manifestVersion": "0.1"

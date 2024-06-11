@@ -7,7 +7,7 @@
     "build": "GATSBY_TELEMETRY_DISABLED=1 gatsby build",
     "clean": "rimraf public",
     "lint": "yarn lint:eslint && yarn lint:misc --check",
-    "lint:eslint": "eslint . --cache --ext js,ts",
+    "lint:eslint": "eslint . --cache --ext js,ts,jsx,tsx",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
     "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' --ignore-path .gitignore",
     "start": "GATSBY_TELEMETRY_DISABLED=1 gatsby develop"
@@ -62,10 +62,12 @@
     "gatsby-plugin-svgr": "^3.0.0-beta.0",
     "prettier": "^2.7.1",
     "prettier-plugin-packagejson": "^2.2.18",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.7.4"
+    "rimraf": "^4.1.2",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.8.4"
   },
   "engines": {
-    "node": ">=18.6.0"
+    "node": "^18.16 || >=20"
   }
 }

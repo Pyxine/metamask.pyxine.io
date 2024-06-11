@@ -3,5 +3,13 @@
   "compilerOptions": {
     "baseUrl": "./"
   },
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx", 
+    "/static/*",
+    "snap.config.ts"
+  ],
+  "ignore": [
+    "**/*.test.*"
+  ]
 }
