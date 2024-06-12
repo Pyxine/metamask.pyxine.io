@@ -78,6 +78,6 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/pyxine"
+    "registry": "https://registry.npmjs.org"
   }
 }
