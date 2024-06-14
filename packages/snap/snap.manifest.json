@@ -7,7 +7,7 @@
     "url": "git+https://github.com/Pyxine/metamask.pyxine.io.git"
   },
   "source": {
-    "shasum": "iGN1m44qYfOGTomFtcz7qa16Viap4UZzp1PFSBpzgLg=",
+    "shasum": "kdylrhpdG64hZnKt/07KM0zk1SO7p553TGiJqwGxy1s=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

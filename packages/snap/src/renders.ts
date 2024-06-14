@@ -26,8 +26,6 @@ export function renderScore(transaction: { to: string }, score: Score): any {
     divider(),
     heading('Address'),
     address(`0x${remove0x(transaction.to)}`),
-    // heading('Creation Date'),
-    // text('01/01/1970'),
     heading('Interactions'),
     text(
       `${

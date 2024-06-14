@@ -11,10 +11,16 @@ export type Score = {
   transactions: number;
 };
 
-export async function getScore(transaction: { to: string }): Promise<Score> {
+export async function getScore(
+  transaction: { to: string },
+  chainId: string | undefined,
+  origin: string | undefined,
+): Promise<Score> {
   let scoreResult = await fetch(`${PYXINE_API_BASE_URL}/${transaction.to}`, {
     headers: {
       'x-api-key': PYXINE_PUBLIC_METAMASK_API_KEY,
+      'x-chain-id': chainId || '',
+      'x-origin': origin || '',
       'x-cached': 'true',
     },
   });
@@ -23,6 +29,8 @@ export async function getScore(transaction: { to: string }): Promise<Score> {
     scoreResult = await fetch(`${PYXINE_API_BASE_URL}/${transaction.to}`, {
       headers: {
         'x-api-key': PYXINE_PUBLIC_METAMASK_API_KEY,
+        'x-chain-id': chainId || '',
+        'x-origin': origin || '',
       },
     });
   }
