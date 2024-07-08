@@ -9,6 +9,8 @@ export type Score = {
   isVerified: boolean;
   transactionsDiffAccounts: number;
   transactions: number;
+  symbol: string;
+  description: string;
 };
 
 export async function getScore(
@@ -16,10 +18,13 @@ export async function getScore(
   chainId: string | undefined,
   origin: string | undefined,
 ): Promise<Score> {
+  const hexChainId = chainId?.includes(':') ? chainId.split(':')[1] : chainId;
+  const parsedChainId = hexChainId ? parseInt(hexChainId, 16) : undefined;
+
   let scoreResult = await fetch(`${PYXINE_API_BASE_URL}/${transaction.to}`, {
     headers: {
       'x-api-key': PYXINE_PUBLIC_METAMASK_API_KEY,
-      'x-chain-id': chainId || '',
+      'x-chain-id': parsedChainId?.toString() || '',
       'x-origin': origin || '',
       'x-cached': 'true',
     },
@@ -29,7 +34,7 @@ export async function getScore(
     scoreResult = await fetch(`${PYXINE_API_BASE_URL}/${transaction.to}`, {
       headers: {
         'x-api-key': PYXINE_PUBLIC_METAMASK_API_KEY,
-        'x-chain-id': chainId || '',
+        'x-chain-id': parsedChainId?.toString() || '',
         'x-origin': origin || '',
       },
     });

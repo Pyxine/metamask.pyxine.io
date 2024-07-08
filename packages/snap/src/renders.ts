@@ -6,6 +6,7 @@ import {
   text,
   divider,
   image,
+  row,
 } from '@metamask/snaps-sdk';
 import safeIcon from '../static/shield-safe.svg';
 import crossIcon from '../static/shield-cross.svg';
@@ -26,15 +27,21 @@ export function renderScore(transaction: { to: string }, score: Score): any {
     divider(),
     heading('Address'),
     address(`0x${remove0x(transaction.to)}`),
-    heading('Interactions'),
-    text(
-      `${
-        score.transactions == -1
-          ? 'Not enough interactions'
-          : score.transactions >= 1
-          ? 'More than 10,000'
-          : score.transactions * 10000
-      }`,
+    divider(),
+    heading('Details'),
+    row('Symbol', text(score.symbol)),
+    row('Description', text(score.description)),
+    row(
+      'Interactions',
+      text(
+        `${
+          score.transactions == -1
+            ? 'Not enough interactions'
+            : score.transactions >= 1
+            ? 'More than 10,000'
+            : score.transactions * 10000
+        }`,
+      ),
     ),
     ...renderDetails(score),
   ]);
