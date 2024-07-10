@@ -9,8 +9,8 @@ export type Score = {
   isVerified: boolean;
   transactionsDiffAccounts: number;
   transactions: number;
-  symbol: string;
-  description: string;
+  symbol: string | 'unknown';
+  description: string | 'unknown';
 };
 
 export async function getScore(
