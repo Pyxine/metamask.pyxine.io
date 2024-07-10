@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Pyxine, your web3 defender",
   "proposedName": "Pyxine",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "git+https://github.com/Pyxine/metamask.pyxine.io.git"
   },
   "source": {
-    "shasum": "L4O4MD3e67fdZfLkTsix3360KhLHesxMn6JMBeRXj0U=",
+    "shasum": "+jv0sMEYcZ3inN/YSLmQYBrG1uvCTmvVzsTR7UEOxFg=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
